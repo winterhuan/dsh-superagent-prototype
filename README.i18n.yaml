@@ -1,0 +1,46 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write README.md
+/:
+  en: 7205b034772eb29f
+  zh: 3c92c4e50918352e
+/dsh-superagent:
+  en: d9786c616bc667c2
+  zh: aa1c560febcde5c1
+/dsh-superagent/summary:
+  en: ccc71c1e85c83501
+  zh: bafbc0a4d3c04188
+/dsh-superagent/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 75f067b4c4218355
+/dsh-superagent/use-this-package:
+  en: c639a15d0ddccf68
+  zh: e1efff699d7a91d5
+/dsh-superagent/understand-the-implementation:
+  en: abed7f908e8b9b26
+  zh: 2f42c450951bbaa7
+/dsh-superagent/further-exploration:
+  en: f52684b2cd8ca222
+  zh: ffc769d893dddfbf
+/dsh-superagent/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/dsh-superagent/model-experience/role-context-and-work:
+  en: ff365f89278fcdb2
+  zh: 68276b1cf049e5b3
+/dsh-superagent/model-experience/role-context-and-work/what-the-model-sees:
+  en: d5ccd73def2659ab
+  zh: 76d726689cdc7666
+/dsh-superagent/model-experience/role-context-and-work/token-effect:
+  en: 64dab5e29c5cffbf
+  zh: 43b033bcf44cff64
+/dsh-superagent/model-experience/role-context-and-work/kv-cache-effect:
+  en: 8d4c2da0c667e230
+  zh: 862522f0b2ccfef5
+/dsh-superagent/known-limitations-and-deferred-work:
+  en: cd6d71bcc09f4cc3
+  zh: 2fb72fa4810ead65
+/dsh-superagent/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea
