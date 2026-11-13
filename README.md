@@ -32,7 +32,7 @@ pnpm install --frozen-lockfile
 pnpm build
 ```
 
-The package loads `lib/index.js` and `lib/client.js`; Git does not contain these build outputs. Follow [006 Deployment](docs/006-deployment.md#install) to create a separate profile, then link this checkout with `dsh plugin --profile superagent add "link:$PWD"`. Remove the layer with `dsh plugin --profile superagent remove dsh-superagent`. Configure its state directory, accounts, models and policy before starting work.
+The package loads `lib/index.js` and `lib/client.js`; Git does not contain these build outputs. Follow [006 Deployment](docs/006-deployment.md#install) to create a separate profile, then link this checkout with `dsh plugin --profile superagent add "link:$PWD"`. Remove the layer with `dsh plugin --profile superagent remove dsh-superagent`. Configure accounts, models and policy before starting work.
 
 Setup has many steps, so an agent does it with you. Ask your coding agent:
 
@@ -82,7 +82,7 @@ Superagent aims to take as little human attention as possible and give as much v
 
 #### What the model sees
 
-The orchestrator and workers receive role instructions, shared routing rules, operational guides, team text and execution-environment settings. The orchestrator additionally receives the team policy. [Prompt composition](src/app/prompts.ts) resolves built-in parts such as `runtime/shared` and team overrides, and registers source skills with the `dsh-superagent-` prefix. Workers receive the original request and their ticket context; [004 Prompts](docs/004-prompts.md) owns the detailed composition.
+The orchestrator and workers receive role instructions, shared routing rules, operational guides, team policy and source context. [Prompt composition](src/app/prompts.ts) resolves built-in parts such as `runtime/shared` and team overrides, and registers source skills with the `dsh-superagent-` prefix. Workers receive the original request and their ticket context; [004 Prompts](docs/004-prompts.md) owns the detailed composition.
 
 #### Token effect
 
@@ -100,10 +100,7 @@ Unchanged role instructions can form reusable prefixes. Team overrides, policy r
 >
 > We have adapted it for publication, so it is not identical to our internal version or the implementation described in *Exploring Super-agent Design: Towards a More Autonomous Agent System*. Some designs discussed in the article are directions for future development and are not implemented in this prototype.
 
-- The fork keeps package version `0.1.0` and the original DSH dependency series.
-- It has no prebuilt Git release or installation preparation script; use the local build.
-- Host compatibility and real-model operation require separate verification.
-- Account credentials and source permissions must be configured for the chosen deployment; linking the package does not complete setup.
+The fork keeps package version `0.1.0` and the original DSH dependency series. It has no prebuilt Git release or installation preparation script; use the local build. Host compatibility and real-model operation require separate verification. Account credentials and source permissions must be configured for the chosen deployment; linking the package does not complete setup.
 
 <a id="dev-note"></a>
 ### Dev Note
