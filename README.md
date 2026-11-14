@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Handle requests for one GitHub repository, with optional Feishu input. Superagent evaluates requests under the team's policy, creates work items for authorized work, executes them in independent DSH sessions and directories, and replies in the source conversation. A Web panel shows work that needs a person. Build this research prototype locally before linking it into a separate profile.
+Handle requests for one GitHub repository, with optional Feishu input. Superagent evaluates requests under the team's policy, creates work items for authorized work, executes them in independent DSH sessions and directories, and replies in the source conversation. A Web panel shows work that needs a person. Install the prebuilt fork into a separate profile; source development uses a local build.
 
 ## Table of Contents
 
@@ -25,14 +25,20 @@ Handle requests for one GitHub repository, with optional Feishu input. Superagen
 <a id="use-this-package"></a>
 ## Use this package
 
-Use Node.js 24 and pnpm 11.7.0. This fork keeps the prototype's DSH `0.2.1-alpha.2` development dependencies; verify compatibility with your host before using it. From this repository directory, install its frozen dependencies and build:
+Use Node.js 24 and pnpm 11.7.0. This fork keeps the prototype's DSH `0.2.1-alpha.2` development dependencies; verify compatibility with your host before using it. Follow [006 Deployment](docs/006-deployment.md#install) to create a separate profile, then install the prebuilt Git release:
+
+```sh
+dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.0"
+```
+
+For source development, install the frozen dependencies and rebuild from this repository directory:
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm build
 ```
 
-The package loads `lib/index.js` and `lib/client.js`; Git does not contain these build outputs. Follow [006 Deployment](docs/006-deployment.md#install) to create a separate profile, then link this checkout with `dsh plugin --profile superagent add "link:$PWD"`. Remove the layer with `dsh plugin --profile superagent remove dsh-superagent`. Configure accounts, models and policy before starting work.
+The Git release includes `lib/index.js` and `lib/client.js`, so installation does not run a build. To load a development build, link this checkout with `dsh plugin --profile superagent add "link:$PWD"`. Remove the layer with `dsh plugin --profile superagent remove dsh-superagent`. Configure accounts, models and policy before starting work.
 
 Setup has many steps, so an agent does it with you. Ask your coding agent:
 
@@ -100,7 +106,10 @@ Unchanged role instructions can form reusable prefixes. Team overrides, policy r
 >
 > We have adapted it for publication, so it is not identical to our internal version or the implementation described in *Exploring Super-agent Design: Towards a More Autonomous Agent System*. Some designs discussed in the article are directions for future development and are not implemented in this prototype.
 
-The fork keeps package version `0.1.0` and the original DSH dependency series. It has no prebuilt Git release or installation preparation script; use the local build. Host compatibility and real-model operation require separate verification. Account credentials and source permissions must be configured for the chosen deployment; linking the package does not complete setup.
+- The fork keeps package version `0.1.0` and the original DSH dependency series.
+- Runtime changes require rebuilding and publishing a new immutable Git ref.
+- Host compatibility and real-model operation require separate verification.
+- Account credentials and source permissions must be configured for the chosen deployment; installing the package does not complete setup.
 
 <a id="dev-note"></a>
 ### Dev Note
