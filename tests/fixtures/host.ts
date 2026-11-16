@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { vi, type Mock } from 'vitest'
 import type { UserMessage } from '@deepseek-ai/dsh-llm'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import { Runtime } from '../../src/app/runtime.ts'
 import { Store } from '../../src/app/store.ts'
 import { SettingsSchema } from '../../src/policy.ts'
@@ -231,14 +232,15 @@ export async function startRuntime(seed?: (store: Store) => void) {
     }),
     selectModel: vi.fn(async () => {}), resolveAgent: vi.fn(resolveDefault), rename: vi.fn(async () => {}),
     prompt: vi.fn(() => { throw new Error('Plugin delivery must not use user RPC') }),
-    inspect: vi.fn(async () => ({ events: [] })),
   }
+  const sessionQuery = { observeSession: vi.fn<() => Promise<{ events: SessionEvent[]; [Symbol.dispose](): void }>>(
+    async () => ({ events: [], [Symbol.dispose]: () => {} })) }
   const reader = { read: async () => ({ events: [] }), [Symbol.asyncDispose]: async () => {} }
   const persistence = { flush: vi.fn(async () => {}), open: vi.fn(async () => reader) }
   const webServer = { host: '127.0.0.1', port: 3082, register: (route: { handler: HttpHandler }) => { http = route.handler; return () => {} } }
   const jobs = jobRegistry(id => agents.get(id))
   const subagents = subagentRuntime(agents)
-  const services = { agents, llm: { resolveCallConfig: vi.fn(async (value: unknown) => value) }, sessionController: controller,
+  const services = { agents, llm: { resolveCallConfig: vi.fn(async (value: unknown) => value) }, sessionController: controller, sessionQuery,
     sessionPersistence: persistence, workspaceRegistry: { create: async (cwd: string) => ({ id: cwd }) }, permissionPresets: { set: () => {} }, subprocess, webServer,
     jobs: jobs.service, subagents: subagents.service }
   const ctx = new Context()
@@ -293,7 +295,7 @@ export async function startRuntime(seed?: (store: Store) => void) {
   const step = (sessionId: string) => { steps.get(sessionId)!() }
   /** A step of the worker claims what waits for it, and is cut off before the Session took it. */
   const claim = (sessionId: string) => { claims.get(sessionId)!() }
-  return { runtime, ctx, directory, agents, tools, deliveries, relays, candidates, runTool, route, acceptedTicket, api, controller, subprocess, hooks, resolveDefault, stop,
+  return { runtime, ctx, directory, agents, tools, deliveries, relays, candidates, runTool, route, acceptedTicket, api, controller, sessionQuery, subprocess, hooks, resolveDefault, stop,
     jobs, subagents, step, claim }
 }
 export type Host = Awaited<ReturnType<typeof startRuntime>>

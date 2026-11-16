@@ -89,7 +89,7 @@ Run the profile-creation command only for a new installation. If the profile alr
 For an existing profile, the fork also provides a prebuilt Git release. This replaces a local link or tarball dependency without changing the profile's configuration or state directory:
 
 ```sh
-dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.0"
+dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.1"
 scripts/dsh-superagent --profile superagent restart
 ```
 

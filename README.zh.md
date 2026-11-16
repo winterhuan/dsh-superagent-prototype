@@ -25,10 +25,10 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用此包
 
-使用 Node.js 24 和 pnpm 11.7.0。这个 fork 保留原型的 DSH `0.2.1-alpha.2` 开发依赖；使用前核对与宿主的兼容性。按 [006 部署](docs/006-deployment.md#install)创建独立 profile，再安装预构建 Git 发布包：
+使用 Node.js 24 和 pnpm 11.7.0。这个 fork 要求 DSH `0.2.2-rc.1`；开发依赖和对等依赖均使用与宿主一致的精确版本。按 [006 部署](docs/006-deployment.md#install)创建独立 profile，再安装预构建 Git 发布包：
 
 ```sh
-dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.0"
+dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.1"
 ```
 
 开发源码时，在本仓库目录安装冻结依赖并重新构建：
@@ -106,7 +106,7 @@ Superagent 的目标是尽量少占用人的注意力，尽量多提供价值。
 >
 > 我们为公开发布调整了实现，因此它与内部版本或《Exploring Super-agent Design: Towards a More Autonomous Agent System》描述的实现并不相同。文章中讨论的某些设计属于未来方向，尚未在此原型中实现。
 
-- fork 保留包版本 `0.1.0` 和原有 DSH 依赖系列。
+- DSH 依赖必须与宿主版本完全一致；其他宿主版本需要兼容性适配。
 - 修改运行时后，需重新构建并发布新的固定 Git 引用。
 - 宿主兼容性和真实模型运行需单独验证。
 - 必须为选定部署配置账号凭据与来源权限；安装包并不等于完成设置。
