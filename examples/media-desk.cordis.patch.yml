@@ -1,0 +1,10 @@
+# Append this layer to the Superagent profile after installing Media Desk in its own profile.
+# Use the installed package's skills directory so its references and image scripts stay together.
+- insert:
+    - id: superagent-media-desk-skills
+      name: '@deepseek-ai/dsh-skill-filesystem'
+      config:
+        providerName: superagent-media-desk
+        includeDefaultRoots: false
+        customSkillDirs:
+          - <absolute Media Desk package directory>/skills

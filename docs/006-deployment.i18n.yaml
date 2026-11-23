@@ -1,0 +1,61 @@
+# Bilingual-pair consistency record for 006-deployment.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/006-deployment.md
+/006-deployment:
+  en: 538c33f66cdd5ecd
+  zh: be0dbbebddecc01a
+/006-deployment/what-runs:
+  en: bf0e92a32ebf4757
+  zh: 664f05c5d23d7320
+/006-deployment/what-runs/permissions-and-isolation:
+  en: f3729d10a60c92e3
+  zh: 91740792998833d1
+/006-deployment/prerequisites:
+  en: ba6a184346922621
+  zh: b2409166a5a44934
+/006-deployment/accounts:
+  en: e52ec46a729892e7
+  zh: 0e0b330c87215585
+/006-deployment/accounts/agent-github-account:
+  en: bccecaac18179730
+  zh: 428e63c3271d738a
+/006-deployment/accounts/feishu-bot-optional:
+  en: c42a1a48dd8f2562
+  zh: 5d6866a116f8d712
+/006-deployment/install:
+  en: d722786df68d15b5
+  zh: 37baaa7eb4d13828
+/006-deployment/machine-configuration:
+  en: 78aad3cabd4f146d
+  zh: 69c2eaaef166a5d4
+/006-deployment/start-and-stop:
+  en: 7ffe83d2cb6d8135
+  zh: 217744e47adf6461
+/006-deployment/start-and-stop/hourly-check:
+  en: 2fc7230855d91fd2
+  zh: 50e216e577306ead
+/006-deployment/settings:
+  en: 93bfaffe631dee96
+  zh: e27c117aba9e64cb
+/006-deployment/settings/media-desk-skills:
+  en: cc3a579287a4b3b3
+  zh: d6935ac819100d37
+/006-deployment/settings/management-api:
+  en: 95f1ab16ac966bba
+  zh: 3f1c0ae09d01e67b
+/006-deployment/setup-checks:
+  en: fbb7cf677c80444e
+  zh: e9e0c5a65ce17ddb
+/006-deployment/try-it:
+  en: bb1373c6973452ab
+  zh: 676f3dbf7e497856
+/006-deployment/upgrade:
+  en: 007c7516de4dbc15
+  zh: d0abc5a7d4fd1e95
+/006-deployment/upgrade/agent-presets:
+  en: 976c24f65f535226
+  zh: ad7a68a59f5151f7
+/006-deployment/troubleshooting:
+  en: 4aee8eadd2beaa1a
+  zh: 39f08727eba30672

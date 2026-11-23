@@ -1,0 +1,97 @@
+# Bilingual-pair consistency record for 007-architecture.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/007-architecture.md
+/007-architecture:
+  en: 8d4924582942a46c
+  zh: cde87360b6847030
+/007-architecture/core-classes-and-glue:
+  en: 09c05e5b89a923ca
+  zh: bd2955956b509c33
+/007-architecture/core-classes-and-glue/runtime:
+  en: 07af3b80610532e2
+  zh: a38d017720feb3d2
+/007-architecture/core-classes-and-glue/engine:
+  en: 89d8d187e77005c9
+  zh: 2c3eeb9471d008d0
+/007-architecture/core-classes-and-glue/model:
+  en: 171200a192e7ce4b
+  zh: c0f5385c4eead17d
+/007-architecture/core-classes-and-glue/policy:
+  en: 7e927516316a3b92
+  zh: dfc2f12112338249
+/007-architecture/core-classes-and-glue/store:
+  en: aee62d3044f9af3a
+  zh: 8a488e75dedf0a6f
+/007-architecture/core-classes-and-glue/effects:
+  en: 4b8f93fd26aa2add
+  zh: dd823e9b5dafa6b4
+/007-architecture/core-classes-and-glue/sources:
+  en: 08f095a0fe382326
+  zh: 4f4c6b991f40b282
+/007-architecture/core-classes-and-glue/dshexecutor:
+  en: f4a395501fc29dac
+  zh: b363c6f01fe60911
+/007-architecture/core-classes-and-glue/masterassessor:
+  en: 98741cff632f13fa
+  zh: aad2f1b30b413798
+/007-architecture/core-classes-and-glue/settings:
+  en: c5fe6a84eaae9c02
+  zh: 80bbba0bda800875
+/007-architecture/core-classes-and-glue/prompts:
+  en: 0877a00300a0d005
+  zh: 22b848cc85d9d0b0
+/007-architecture/core-classes-and-glue/sessions:
+  en: 295e2d6220a09080
+  zh: c3558f49d3d11411
+/007-architecture/core-classes-and-glue/glue:
+  en: b485269f976b5cae
+  zh: c7209fe31361b728
+/007-architecture/dependency-rules:
+  en: b8cbdec62fb38a3b
+  zh: 3b3ce4ed18dfd8a4
+/007-architecture/dependency-rules/source-specific-dependencies:
+  en: 7761512a7be9df2d
+  zh: 25741cda5da253f7
+/007-architecture/modules:
+  en: 5e53f6c076a0fda4
+  zh: c84cc8f2fe09665c
+/007-architecture/tests:
+  en: dd623706ba3938e2
+  zh: d53f494a8a884f56
+/007-architecture/persistence:
+  en: ab52dea93690a1f2
+  zh: dfb06e49818a6e35
+/007-architecture/model-facing-interfaces:
+  en: 5338011a41cc34aa
+  zh: f58283e766c62235
+/007-architecture/model-facing-interfaces/main-session-tools:
+  en: 7d180d74be20cb4b
+  zh: ba6bef6ddd6120e6
+/007-architecture/model-facing-interfaces/presets-and-wait-limits:
+  en: 791a7c8c87a989d3
+  zh: fd857a65a704eb3a
+/007-architecture/model-facing-interfaces/executor-tools:
+  en: cfa75ec3a0d643bd
+  zh: 7c278d4cf96c7c80
+/007-architecture/model-facing-interfaces/result-shapes-and-assessment-context:
+  en: 889dc651be2871cc
+  zh: 1210630f5ebec697
+/007-architecture/model-facing-interfaces/read-resources:
+  en: 7122c0c14c62fd63
+  zh: 5e62957fdfee6e78
+/007-architecture/model-facing-interfaces/messages-delivered-to-sessions:
+  en: 3b3c308bc7160896
+  zh: 1772ec0fc0875993
+/007-architecture/model-facing-interfaces/panel-only-actions:
+  en: 778c4006a67bd561
+  zh: 1569122f5d3cf32b
+/007-architecture/configuration-reload:
+  en: 1c0519acb1b001cc
+  zh: 287a4aefff055fcc
+/007-architecture/reviewing-a-change-against-real-data:
+  en: a8210f8af0696bf4
+  zh: c64ef669b9ecb994
+/007-architecture/open-questions:
+  en: 39f8f5a0de05a697
+  zh: f51b56adb118779a

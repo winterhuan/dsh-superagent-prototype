@@ -4,9 +4,9 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const NUMBERED = /^(\d{3})-[a-z0-9-]+\.md$/
+const NUMBERED = /^(\d{3})-[a-z0-9-]+(?:\.zh)?\.md$/
 const numbered = readdirSync(join(ROOT, 'docs')).filter(name => NUMBERED.test(name)).sort()
-const entries = ['README.md', 'SETUP.md']
+const entries = ['README.md', 'README.zh.md', 'SETUP.md']
 const documents = [...entries, ...readdirSync(join(ROOT, 'docs')).filter(name => name.endsWith('.md')).map(name => `docs/${name}`)]
 const read = (path: string): string => readFileSync(join(ROOT, path), 'utf8')
 function links(file: string): string[] {
@@ -36,10 +36,13 @@ function listed(heading: string): string[] {
 
 describe('documentation', () => {
   it('numbers documents consecutively from 000', () => {
-    expect(numbered.map(name => name.slice(0, 3))).toEqual(numbered.map((_, index) => String(index).padStart(3, '0')))
+    const sources = numbered.filter(name => !name.endsWith('.zh.md'))
+    expect(sources.map(name => name.slice(0, 3))).toEqual(sources.map((_, index) => String(index).padStart(3, '0')))
   })
   it('links numbered documents only to earlier numbered documents', () => {
     const violations = numbered.flatMap(name => links(join(ROOT, 'docs', name)).flatMap(target => {
+      const counterpart = name.endsWith('.zh.md') ? name.replace(/\.zh\.md$/, '.md') : name.replace(/\.md$/, '.zh.md')
+      if (target === counterpart) return []
       const linked = resolve(ROOT, 'docs', target)
       if (!linked.endsWith('.md')) return []
       const number = NUMBERED.exec(linked.slice(linked.lastIndexOf('/') + 1))?.[1]

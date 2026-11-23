@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 001-domain.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/001-domain.md
+/001-domain-model:
+  en: fb51c8cc5e56e2a6
+  zh: 20284e9033517d70
+/001-domain-model/flow:
+  en: 5cd82a449dadf57b
+  zh: 404d7b30555e2382
+/001-domain-model/concepts:
+  en: ccf77d54b653bbb6
+  zh: 405ac97ea1fbf5b0
+/001-domain-model/rejected-concepts:
+  en: be9f39ea5c087c87
+  zh: 02d2b264b971244f
+/001-domain-model/what-is-reusable:
+  en: ce4b391a112c28af
+  zh: 0dcf5d0651c3eb91
+/001-domain-model/glossary:
+  en: bdb54130ba80879e
+  zh: 7a30d17cc2ca88de

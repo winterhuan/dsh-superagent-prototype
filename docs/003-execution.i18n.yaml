@@ -1,0 +1,64 @@
+# Bilingual-pair consistency record for 003-execution.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/003-execution.md
+/003-execution:
+  en: 8adc716860613e51
+  zh: 6a8eb3a3d99c8c16
+/003-execution/ticket-stages:
+  en: d4e09a5ee2bba589
+  zh: e29328105543d4f2
+/003-execution/the-executor:
+  en: 4e409b600cd69fd6
+  zh: ab63c51e9709fbfb
+/003-execution/the-executor/background-work-and-worker-slots:
+  en: 385b52b921443d57
+  zh: 785db4e156988d5c
+/003-execution/the-executor/preparing-a-ticket-directory:
+  en: 5d61da3a613ebd3d
+  zh: bfb0ef7eefb9e5fc
+/003-execution/the-executor/concurrency:
+  en: 671d5fd0b2e7be29
+  zh: 1ec390eb0d1c0078
+/003-execution/the-executor/execution-variables:
+  en: 4429679c06811731
+  zh: 7515d1201258e8ef
+/003-execution/merging:
+  en: f2407d9be24698f8
+  zh: 95f1e3f0576e9a44
+/003-execution/how-a-ticket-ends:
+  en: bb0303272ca73b0e
+  zh: e03bd369375bdc08
+/003-execution/how-a-ticket-ends/pull-requests:
+  en: e7925d821e58f86d
+  zh: 9c4c7e02d11bc579
+/003-execution/how-a-ticket-ends/follow-ups-and-context-threads:
+  en: ed1b674b61c07f97
+  zh: 4343f8a8f0e58a77
+/003-execution/failure-and-recovery:
+  en: 5d0f1b5551626d3f
+  zh: 809d6782f56f9b17
+/003-execution/failure-and-recovery/executor-blocked-or-failed:
+  en: 4da7ea4588a9bd3e
+  zh: 27ca6afa6265e053
+/003-execution/failure-and-recovery/retry:
+  en: 728f2c9326aab87c
+  zh: 262354ebf56e4dc0
+/003-execution/failure-and-recovery/restart:
+  en: 53a1fe9f85c1cddd
+  zh: 0289c256e0ee6829
+/003-execution/failure-and-recovery/stored-work:
+  en: a0c8ff95c92d4090
+  zh: 65fbfa61121adda2
+/003-execution/failure-and-recovery/source-failure:
+  en: 1e43fad9be5df880
+  zh: 4d4f29cf823c5b26
+/003-execution/failure-and-recovery/channel-failure:
+  en: f4c2a9a0821c6853
+  zh: 2906fcd3b13162b4
+/003-execution/failure-and-recovery/pause-processing:
+  en: 1711d89a0e855114
+  zh: e201a84ec079d262
+/003-execution/failure-and-recovery/invalid-configuration:
+  en: f3dae90ab3d0b8b5
+  zh: 97f536e1b0dfd862

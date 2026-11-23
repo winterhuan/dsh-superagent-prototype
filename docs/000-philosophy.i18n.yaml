@@ -1,0 +1,16 @@
+# Bilingual-pair consistency record for 000-philosophy.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/000-philosophy.md
+/000-philosophy:
+  en: e382fe3ba1227e31
+  zh: 5e157beeef86ee23
+/000-philosophy/what-follows-for-the-agent:
+  en: 24cb44a4fe9ec33f
+  zh: 2a565330caa01964
+/000-philosophy/what-follows-for-the-design:
+  en: 5701310cc95314d0
+  zh: 9c55799c3580b6a8
+/000-philosophy/responsibility:
+  en: a56424d1659171b7
+  zh: 093c679ec86a5fb0

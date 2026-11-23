@@ -1,0 +1,46 @@
+# Bilingual-pair consistency record for 008-cookbook.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/008-cookbook.md
+/008-cookbook:
+  en: dc5d54f2252506a6
+  zh: be7b515f73a01952
+/008-cookbook/add-a-source:
+  en: 554a59fd2370dfac
+  zh: 778c0a1e1b8728d8
+/008-cookbook/add-a-source/1-map-the-events-onto-the-domain:
+  en: e7960a83bfc86b09
+  zh: 9aa08581a62a888c
+/008-cookbook/add-a-source/2-configuration-schema-fields-facts-and-health:
+  en: f601eb5ff87a4612
+  zh: ad38dce97bbd21bb
+/008-cookbook/add-a-source/3-translate-a-message-into-a-trigger:
+  en: b63dfbdac7582bdd
+  zh: 6838454de24095c0
+/008-cookbook/add-a-source/4-what-the-source-receives-scope:
+  en: 07b34f68f8497409
+  zh: 537f113fbedd0809
+/008-cookbook/add-a-source/5-replies-the-channel:
+  en: 380014b0edfbc6bd
+  zh: 1853d43bf81fff1f
+/008-cookbook/add-a-source/6-thread-context-for-assessments:
+  en: 5c11cbccc8250225
+  zh: 4d4882499e5e4d32
+/008-cookbook/add-a-source/7-who-may-ask-the-source-s-part-of-the-policy:
+  en: 6ef75a0e41c9e7b8
+  zh: 264bfa964f951c95
+/008-cookbook/add-a-source/8-variables-for-the-executor:
+  en: 605c14b4430072aa
+  zh: f9d1b1e471dcddf9
+/008-cookbook/add-a-source/9-the-plugin-entry-and-its-loop:
+  en: 314109107d70096a
+  zh: 615fee762c548e4b
+/008-cookbook/add-a-source/10-register-the-plugin:
+  en: 8f8820ec5d78295b
+  zh: 6c91261b480f81c9
+/008-cookbook/add-a-source/11-tests:
+  en: 79af1f7e93d7e2a2
+  zh: efe589a0a0a1ac06
+/008-cookbook/add-a-source/checklist:
+  en: 2fcb9e34ced1c76a
+  zh: 6e49bdf2168ee6f0

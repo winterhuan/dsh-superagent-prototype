@@ -1,0 +1,25 @@
+# Bilingual-pair consistency record for 005-panel.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/005-panel.md
+/005-panel:
+  en: bcc76a9abb53b6fd
+  zh: 226b842ca73d4ff7
+/005-panel/three-questions:
+  en: 7e9442a87797835e
+  zh: 427ac80a33213989
+/005-panel/tabs:
+  en: 7e472d86f498205c
+  zh: cdb802da0d1dff71
+/005-panel/tabs/reading-individual-records:
+  en: 844fad4d601887f0
+  zh: a57188157f4c4779
+/005-panel/settings-groups:
+  en: e0b9771c5ee048cc
+  zh: 609aef89485cf113
+/005-panel/search:
+  en: 17e5bbbfd1a74a71
+  zh: 267d452e86775b84
+/005-panel/principles:
+  en: 64ad08222f654a22
+  zh: 188ee7a31654e479

@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 004-prompts.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/004-prompts.md
+/004-prompts:
+  en: 0a5276bcdff4c9a5
+  zh: b3bc465cff6c9282
+/004-prompts/what-a-team-writes:
+  en: 13f2f0875d4a78fb
+  zh: 7c1ae91abb586acf
+/004-prompts/what-a-team-writes/built-in-parts-and-templates:
+  en: 87a40eef24664cf8
+  zh: 9deab8653dcf8b14
+/004-prompts/assembly-and-precedence:
+  en: cba3849aa7c5c295
+  zh: 404c230cec035da9
+/004-prompts/principles-of-the-built-in-text:
+  en: 885adef81220261c
+  zh: 61de9d4e1eed0980
+/004-prompts/versions:
+  en: f35c0fd72677541a
+  zh: 0587571b0298ccd5

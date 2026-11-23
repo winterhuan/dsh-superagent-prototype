@@ -1,0 +1,49 @@
+# Bilingual-pair consistency record for 002-authorization.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/002-authorization.md
+/002-authorization:
+  en: e67401ef683f4933
+  zh: 791c61beee22ea96
+/002-authorization/two-paths-for-a-trigger:
+  en: bdbd05bd2eba9690
+  zh: 89afff0da536bf44
+/002-authorization/two-paths-for-a-trigger/eval-deciding-whether-to-start-work:
+  en: 4fbbf824fce331c5
+  zh: 08d72d3339b7b6ac
+/002-authorization/two-paths-for-a-trigger/subscriptions-continuing-existing-work:
+  en: 85e9ab2b95fb32f1
+  zh: 250e47777b8c0ca7
+/002-authorization/two-paths-for-a-trigger/handing-back-and-releasing-follow-ups:
+  en: bc857b11d0c69c4e
+  zh: dd46aba7595ff917
+/002-authorization/two-paths-for-a-trigger/context-only-subscriptions:
+  en: 4757f3d655e0fdda
+  zh: 8be69c563f018f03
+/002-authorization/strength:
+  en: c9d157cb74f5f05d
+  zh: 41be0fd89c460484
+/002-authorization/admission:
+  en: dae26f26af1d747c
+  zh: ab5464ef6f04ccd3
+/002-authorization/admission/bots-and-automated-reviewers:
+  en: 5b85080cbfd38b0c
+  zh: 5be8856308768c3f
+/002-authorization/routing-candidates:
+  en: a5326b9c9d1cf3ef
+  zh: 13e17be73f71e4f9
+/002-authorization/accept-mode-and-rules:
+  en: 19a26adde47cadc6
+  zh: 744f973a7bc3e4d5
+/002-authorization/policy-version:
+  en: eac7f7f9db5d17c5
+  zh: 615edf4a8f543174
+/002-authorization/resume-and-stop:
+  en: 6a354eae3e89146a
+  zh: 1f33f6321aeeb591
+/002-authorization/resume-and-stop/revalidation-before-resume:
+  en: 9eed356c982bc119
+  zh: 63e6cb8b8ef593a8
+/002-authorization/when-eval-does-not-finish:
+  en: 5cc86d243331acbb
+  zh: d27ca07d1724aac2

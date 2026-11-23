@@ -1,5 +1,7 @@
 # 006 Deployment
 
+English | [中文](006-deployment.zh.md)
+
 Use this guide to install, configure and operate dsh-superagent. It covers accounts, startup checks, upgrades and troubleshooting, building on [001 Domain model](001-domain.md) through [005 Panel](005-panel.md).
 
 ## What runs
@@ -23,7 +25,7 @@ Both presets run with `danger-full-access` as the operator's OS user and read me
 - Node.js 22.19+ or 24+, pnpm, git 2.32+, Python 3.8+ and tmux
 - GitHub CLI (`gh`) 2.48 or later. Source CLI fields must point to `gh` or `lark-cli` wrappers; the host relies on their subcommands and output formats.
 - A repository on github.com; GitHub Enterprise Server is not supported. To create a checkout per Ticket, keep a local clone from which the prepare command can add worktrees. Install `git-lfs` if that repository uses Git LFS.
-- A model provider configured for DeepSeek Harness. dsh-superagent uses the profile's default model unless the Eval or Execution settings name another.
+- A model provider configured for DeepSeek Harness. New dsh-superagent Sessions use the profile's default model unless the Eval or Execution settings name another; resumed Sessions keep their saved model selection.
 - For Feishu: `lark-cli` (tested with 1.0.90) and a Feishu or Lark app with a bot
 
 ## Accounts
@@ -67,6 +69,8 @@ Both presets run with `danger-full-access` as the operator's OS user and read me
    The host refuses a CLI that can act as a user. It reads the app id, Feishu/Lark brand and bot `open_id` from the bot configuration.
 
    Both configurations share the keychain entry for the app secret. To remove only the bot configuration, delete its directory; do not run `lark-cli config remove`, which would affect the shared secret.
+
+<a id="install"></a>
 
 ## Install
 
@@ -164,6 +168,23 @@ Setup must succeed before polling or work starts. Overview lists missing require
 
    List personal CLIs, such as one signed in to your own account, as blocked commands.
 4. **Prompts.** Set the team sections: the GitHub disclosure line, review bots, the commit author and the auto-merge condition.
+
+### Media Desk skills
+
+Install Media Desk in its own profile, then append [the skill-provider layer](../examples/media-desk.cordis.patch.yml) to the Superagent profile's `cordis.patch.yml`. Replace the package-directory placeholder with the installed Media Desk package's absolute path. The layer exposes the same `media-desk` and `image-generation` files, references and scripts to the main Session and workers. Restart Superagent after changing the profile layer.
+
+In Prompts, add a team skill named `media-desk`, which Sessions expose as `dsh-superagent-media-desk`. Bind its instructions to the Media Desk package, data home, Wiki and service URL. In the Scope section, direct editorial requests to this skill; in Delivery, require the work ID, current Notes path and acceptance receipt. This configuration remains in the profile and prompt store when either plugin is updated.
+
+The shared npm command and the script inside the skill directory only read and validate. Use the package-root adapter for registration, production acceptance, scheduling and media association:
+
+```sh
+node /absolute/media-desk-package/scripts/media-desk-read.mjs read --data-root /absolute/media-home/media-desk --wiki /absolute/wiki --kind works
+node /absolute/media-desk-package/scripts/media-desk.mjs read --mode plugin --url http://127.0.0.1:3085 --home /absolute/media-home --wiki /absolute/wiki --login-log /absolute/live.log
+```
+
+For a business action, replace `read` with the action and add `--input /absolute/input.json`; the package's `skills/media-desk/references/plugin-adapter.md` describes the inputs. Keep `--mode plugin` and the explicit Media Desk locations so a missing service fails without opening another profile's data. The adapter reads authentication from the live login log; credentials do not belong in prompts or reports.
+
+New production follows `begin` → planning and writing → `commit`. Keep the candidate in the Ticket directory until acceptance: changing the registered Notes file after `begin` invalidates its frozen content version. Check every frozen writing rule before submission. Existing accepted text uses native file edits followed by validation. For requested images, load `image-generation`, inspect its saved result, then associate it through `asset` with a fresh content version. Confirm the accepted article and media receipts before reporting ready; scheduling records a plan and does not publish to a platform.
 
 ### Management API
 
@@ -281,3 +302,5 @@ Setup problems appear on the overview with a link to the fix, in the panel's lan
 | The log says the plugin is incompatible with the running dsh | Install a DeepSeek Harness version within the `engines.dsh` range |
 | The panel shows "Failed to load plugins" after a DeepSeek Harness upgrade | Restart the running instance |
 | Nothing happens after a mention | Check that the author is on the Source's allowed list, the Source is on, and processing is not paused. On GitHub, a mention added by editing an Issue's body is not received; mention the agent in a comment |
+| A received Trigger repeatedly times out, and the main Session reports `NO_ADAPTER` | The Session's saved provider no longer exists. Select an available model in the main Session and any affected Executor Sessions, and set Eval and Execution models for new Sessions. Then choose **Evaluate again** on the Trigger |
+| Model requests fail with HTTP 503 | The selected model service is unavailable. Switch the affected Sessions and role defaults to a working provider and model. Verify an actual model response; successful `status` or model catalog loading does not verify generation |

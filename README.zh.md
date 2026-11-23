@@ -25,7 +25,7 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用此包
 
-使用 Node.js 24 和 pnpm 11.7.0。这个 fork 要求 DSH `0.2.2-rc.1`；开发依赖和对等依赖均使用与宿主一致的精确版本。按 [006 部署](docs/006-deployment.md#install)创建独立 profile，再安装预构建 Git 发布包：
+使用 Node.js 24 和 pnpm 11.7.0。这个 fork 要求 DSH `0.2.2-rc.1`；开发依赖和对等依赖均使用与宿主一致的精确版本。按 [006 部署](docs/006-deployment.zh.md#install)创建独立 profile，再安装预构建 Git 发布包：
 
 ```sh
 dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.1"
@@ -54,7 +54,7 @@ Git 发布包包含 `lib/index.js` 和 `lib/client.js`，安装时不运行构�
 <details>
 <summary>运行时、组合与开发——点击展开</summary>
 
-[组合包补丁](cordis.patch.yml)组合运行时与 Web 客户端。[入口](src/index.ts)启动当前安装的来源、编排与执行服务；[007 架构](docs/007-architecture.md)映射模块与测试。独立的 [pnpm workspace](pnpm-workspace.yaml)避免父级 workspace 接管此包的依赖安装。
+[组合包补丁](cordis.patch.yml)组合运行时与 Web 客户端。[入口](src/index.ts)启动当前安装的来源、编排与执行服务；[007 架构](docs/007-architecture.zh.md)映射模块与测试。独立的 [pnpm workspace](pnpm-workspace.yaml)避免父级 workspace 接管此包的依赖安装。
 
 `pnpm check` 运行类型检查、测试和构建。Creative 的批量命令也运行这些包脚本。Creative 检查双语 README；导入源码保留自身测试与风格约定，不参与 Creative 的 UI 文案、unknown 类型断言和导出 JSDoc 检查。
 
@@ -67,15 +67,15 @@ Git 发布包包含 `lib/index.js` 和 `lib/client.js`，安装时不运行构�
 
 按顺序阅读编号文档；每篇只依赖它之前的文档。
 
-- [000 理念](docs/000-philosophy.md)
-- [001 领域模型](docs/001-domain.md)
-- [002 授权](docs/002-authorization.md)
-- [003 执行](docs/003-execution.md)
-- [004 提示词](docs/004-prompts.md)
-- [005 面板](docs/005-panel.md)
-- [006 部署](docs/006-deployment.md)：手动设置、配置、升级与排障
-- [007 架构](docs/007-architecture.md)
-- [008 实操手册](docs/008-cookbook.md)：添加来源
+- [000 理念](docs/000-philosophy.zh.md)
+- [001 领域模型](docs/001-domain.zh.md)
+- [002 授权](docs/002-authorization.zh.md)
+- [003 执行](docs/003-execution.zh.md)
+- [004 提示词](docs/004-prompts.zh.md)
+- [005 面板](docs/005-panel.zh.md)
+- [006 部署](docs/006-deployment.zh.md)：手动设置、配置、升级与排障
+- [007 架构](docs/007-architecture.zh.md)
+- [008 实操手册](docs/008-cookbook.zh.md)：添加来源
 
 Superagent 的目标是尽量少占用人的注意力，尽量多提供价值。它在收到请求或团队规则允许时行动，在有人必须操作或能使用结果时发言。理念文档说明操作者的责任。本仓库采用 [MIT 许可](LICENSE)。
 
@@ -88,7 +88,7 @@ Superagent 的目标是尽量少占用人的注意力，尽量多提供价值。
 
 #### 模型看到什么
 
-编排器与执行者接收角色指令、共享路由规则、操作指南、团队文本和执行环境设置。编排器还接收团队策略。[提示词组合](src/app/prompts.ts)解析 `runtime/shared` 等内置部分与团队覆盖，并用 `dsh-superagent-` 前缀注册来源 skill（技能）。执行者接收原始请求与工作项上下文；[004 提示词](docs/004-prompts.md)维护详细组合说明。
+编排器与执行者接收角色指令、共享路由规则、操作指南、团队文本和执行环境设置。编排器还接收团队策略。[提示词组合](src/app/prompts.ts)解析 `runtime/shared` 等内置部分与团队覆盖，并用 `dsh-superagent-` 前缀注册来源 skill（技能）。执行者接收原始请求与工作项上下文；[004 提示词](docs/004-prompts.zh.md)维护详细组合说明。
 
 #### Token 影响
 
