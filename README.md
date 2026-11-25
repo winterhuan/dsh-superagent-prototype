@@ -25,10 +25,10 @@ Handle requests for one GitHub repository, with optional Feishu input. Superagen
 <a id="use-this-package"></a>
 ## Use this package
 
-Use Node.js 24 and pnpm 11.7.0. This fork requires DSH `0.2.2-rc.1`; its development and peer dependencies use the same exact version as the host. Follow [006 Deployment](docs/006-deployment.md#install) to create a separate profile, then install the prebuilt Git release:
+Use Node.js 24 and pnpm 11.7.0. This fork requires DSH `0.2.2-rc.5`; its development and peer dependencies use the same exact version as the host. Follow [006 Deployment](docs/006-deployment.md#install) to create a separate profile, then install the prebuilt Git release:
 
 ```sh
-dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.1"
+dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.2"
 ```
 
 For source development, install the frozen dependencies and rebuild from this repository directory:

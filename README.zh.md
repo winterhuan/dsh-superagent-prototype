@@ -25,10 +25,10 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用此包
 
-使用 Node.js 24 和 pnpm 11.7.0。这个 fork 要求 DSH `0.2.2-rc.1`；开发依赖和对等依赖均使用与宿主一致的精确版本。按 [006 部署](docs/006-deployment.zh.md#install)创建独立 profile，再安装预构建 Git 发布包：
+使用 Node.js 24 和 pnpm 11.7.0。这个 fork 要求 DSH `0.2.2-rc.5`；开发依赖和对等依赖均使用与宿主一致的精确版本。按 [006 部署](docs/006-deployment.zh.md#install)创建独立 profile，再安装预构建 Git 发布包：
 
 ```sh
-dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.1"
+dsh plugin --profile superagent add "github:winterhuan/dsh-superagent-prototype#v0.1.2"
 ```
 
 开发源码时，在本仓库目录安装冻结依赖并重新构建：
