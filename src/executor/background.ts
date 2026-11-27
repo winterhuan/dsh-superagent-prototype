@@ -5,6 +5,7 @@
 import type { Context } from '@deepseek-ai/cordis'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SubagentRuntime } from '@deepseek-ai/dsh-subagent'
 
 /** What the Executor uses of DSH's job registry: the jobs a Session can see, their events, a wait for one and a kill. */
 interface Jobs {
@@ -13,15 +14,11 @@ interface Jobs {
   kill(id: string, caller: string, reason?: string): unknown
   readonly events: { subscribe(filter: { owner: string }, listener: (event: { type: string }) => void): () => void }
 }
-/** What the Executor uses of DSH's subagents: joining a worker's subagents that work, its subagents, and releasing them. */
-interface Subagents {
-  waitForChildren(parent: Agent): Promise<boolean>
-  listChildren(parentSessionId: string): Promise<readonly { id: string }[]>
-  drainChildren(parent: Agent, childIds: readonly string[]): Promise<void>
-}
+/** Interrupt descendants without closing admission: the worker Session can serve a later Assignment. */
+type Subagents = Pick<SubagentRuntime, 'waitForTreeWork' | 'listDescendants' | 'interrupt'>
 /** How long a stop waits for a killed job to end, collecting its end so the worker is not woken to hear of it. */
 const KILL_WAIT_MS = 10_000
-/** How long a release of subagents may take; it can hold up a shutdown, so DSH's own callers bound it too. */
+/** Bound the wait for interrupted descendants and the worker turn their ends can wake. */
 const DRAIN_LIMIT_MS = 10_000
 /** How long one wait that collects a job's end runs; one that ends with the job running is followed by the next. */
 const COLLECT_WAIT_MS = 10 * 60_000
@@ -49,7 +46,7 @@ const joins = new WeakMap<Agent, Promise<boolean>>()
 function childrenEnd(subagents: Subagents, agent: Agent): Promise<boolean> {
   let join = joins.get(agent)
   if (!join) {
-    join = subagents.waitForChildren(agent).finally(() => { joins.delete(agent) })
+    join = subagents.waitForTreeWork(agent).finally(() => { joins.delete(agent) })
     joins.set(agent, join)
   }
   return join
@@ -134,17 +131,23 @@ export async function collectJob(ctx: Context, sessionId: string, job: { id: str
 }
 
 /**
- * Release the worker's live subagents, for a bounded time. DSH delivers each one's end to the worker before the release
- * returns, which wakes it, so the worker's turn is cancelled after, keeping its inbox when `keepInbox`, and the stop ends
- * with that turn. Its Session still admits subagents.
+ * Interrupt the worker's resident descendants and wait for their work for a bounded time. Cancel any turn their ends wake,
+ * keeping the worker's inbox when `keepInbox`. Descendant Sessions remain resumable and the worker still admits subagents.
  */
 export async function stopSubagents(ctx: Context, agent: Agent, keepInbox = false): Promise<void> {
   const subagents = subagentsOf(ctx)
   if (!subagents) return
-  // The catalog lists every subagent the Session had; one that ended has no agent.
-  const live = (await subagents.listChildren(agent.id)).map(child => child.id).filter(id => ctx.agents.get(id as SessionId))
+  const live = (await subagents.listDescendants(agent.id)).filter(child => child.kind === 'child'
+    && child.activity === 'running' && ctx.agents.get(child.id)?.status !== 'idle')
   if (!live.length) return
-  try { await until(subagents.drainChildren(agent, live), undefined, DRAIN_LIMIT_MS) }
+  try {
+    const failures: unknown[] = []
+    for (const child of live) {
+      try { subagents.interrupt(child.id, { kind: 'ancestor', agent }) } catch (error) { failures.push(error) }
+    }
+    await until(childrenEnd(subagents, agent), undefined, DRAIN_LIMIT_MS)
+    if (failures.length) throw new AggregateError(failures, `Interrupting the subagents of ${agent.id} failed`)
+  }
   finally {
     if (agent.status !== 'idle') cancelled.add(agent)
     agent.cancel({ kind: 'user' }, { keepInbox })
@@ -153,7 +156,7 @@ export async function stopSubagents(ctx: Context, agent: Agent, keepInbox = fals
 }
 
 /**
- * Stop what a worker runs in the background once its Assignment ends: kill its shell jobs and release its subagents (see
+ * Stop what a worker runs in the background once its Assignment ends: kill its shell jobs and interrupt its subagents (see
  * `stopSubagents`). A Session not loaded has no subagent at work. One failure stops nothing else.
  */
 export async function stopBackground(ctx: Context, sessionId: string, reason: string, keepInbox = false): Promise<void> {

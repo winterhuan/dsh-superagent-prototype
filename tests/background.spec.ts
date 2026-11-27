@@ -1,20 +1,43 @@
 /** A worker's background work in DSH: waiting for its shell jobs and subagents, and stopping them. */
 import type { Context } from '@deepseek-ai/cordis'
 import type { Agent } from '@deepseek-ai/dsh-agent'
+import { SubagentRuntime } from '@deepseek-ai/dsh-subagent'
 import { expect, it, vi } from 'vitest'
-import { stopSubagents, untilQuiet } from '../src/executor/background.ts'
+import { stopBackground, stopSubagents, untilQuiet } from '../src/executor/background.ts'
 import { jobRegistry } from './fixtures/host.ts'
 
 /** A context with DSH's job registry and subagents, and an idle worker agent with one live subagent, `child-1`. */
-function setup(waitForChildren: (agent: Agent) => Promise<boolean>, drainChildren: () => Promise<void> = async () => {}) {
+function setup(waitForTreeWork: (agent: Agent) => Promise<boolean>, waitAfterInterrupt: () => Promise<void> = async () => {}) {
   const jobs = jobRegistry()
   const agent = { id: 'worker-t1', status: 'idle', whenIdle: async () => {}, inbox: { nextTurn: [], nextStep: [] }, cancel: vi.fn() } as unknown as
     Agent & { status: string; cancel: ReturnType<typeof vi.fn> }
-  const subagents = { waitForChildren: vi.fn(waitForChildren), listChildren: async () => [{ id: 'child-1' }], drainChildren: vi.fn(drainChildren) }
+  const subagents = { waitForTreeWork: vi.fn(waitForTreeWork),
+    listDescendants: async () => [{ id: 'child-1', kind: 'child', activity: 'running' }],
+    interrupt: vi.fn(() => { subagents.waitForTreeWork.mockImplementation(async () => { await waitAfterInterrupt(); return false }) }) }
   const services: Record<string, unknown> = { jobs: jobs.service, subagents }
-  const ctx = { get: (name: string) => services[name], agents: { get: () => agent } } as unknown as Context
+  const ctx = { get: (name: string) => services[name],
+    agents: { get: (id: string) => id === agent.id ? agent : { id, status: 'running' } } } as unknown as Context
   return { ctx, agent, jobs, subagents }
 }
+
+it('stops background work with the installed DSH subagent API when there are no descendants', async () => {
+  const { agent } = setup(async () => false)
+  const subagents = Object.create(SubagentRuntime.prototype) as SubagentRuntime
+  const list = vi.spyOn(subagents, 'listDescendants').mockResolvedValue([])
+  const ctx = { get: (name: string) => name === 'subagents' ? subagents : undefined, agents: { get: () => agent } } as unknown as Context
+  await expect(stopBackground(ctx, agent.id, 'Completed')).resolves.toBeUndefined()
+  await expect(untilQuiet(ctx, agent, new AbortController().signal)).resolves.toBe(true)
+  expect(list).toHaveBeenCalledWith(agent.id)
+  expect(agent.cancel).not.toHaveBeenCalled()
+})
+
+it('leaves an idle resident descendant and its parent turn alone', async () => {
+  const { ctx, agent, subagents } = setup(async () => false)
+  vi.spyOn(ctx.agents, 'get').mockReturnValue(agent)
+  await stopSubagents(ctx, agent)
+  expect(subagents.interrupt).not.toHaveBeenCalled()
+  expect(agent.cancel).not.toHaveBeenCalled()
+})
 
 it('is not quiet when an end during the subagent check woke the worker, whose own idle looks again', async () => {
   const { ctx, agent, jobs } = setup(async () => {
@@ -59,7 +82,7 @@ it('joins a worker\'s subagents once for the looks that wait on them, as DSH can
     stop.abort()
     expect(await quiet).toBe(false)
   }
-  expect(subagents.waitForChildren).toHaveBeenCalledTimes(1)
+  expect(subagents.waitForTreeWork).toHaveBeenCalledTimes(1)
 })
 
 it('gives up a release of subagents that does not end within 10 seconds, and cancels the turn their ends woke', async () => {

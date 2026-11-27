@@ -42,7 +42,7 @@ At handoff, subagents stop. Shell jobs, such as a server offered for review, may
 
 A person can also start a turn by writing directly in the Executor Session. Its background work follows the same rules.
 
-When an Assignment ends, its shell jobs are killed without waking the Session. Its subagents are released, and any completion turns they wake are dropped. The replacement Assignment and its waiting Inputs start after that shutdown finishes.
+When an Assignment ends, its shell jobs are killed without waking the Session. Work in its resident descendants is interrupted, and any completion turns they wake are dropped. Descendant Sessions remain resumable, and the worker can start new subagents. The replacement Assignment and its waiting Inputs start after that shutdown finishes.
 
 Stopping or restarting the plugin inside the DeepSeek Harness process uses the same shutdown path. Inputs not yet taken into Session history are retained. Shutdown waits up to 10 seconds for each worker's background work; a process restart ends that work outright. An Assignment interrupted while busy restarts with a recovery note.
 
