@@ -97,7 +97,13 @@ it('records the service PID at start, and still refuses a second instance the sc
   const checkout = realpathSync(root)
   expect(tmux).toEqual(expect.arrayContaining(['-P', '-F', '#{pane_pid}', '-c', checkout]))
   const log = new RegExp(`>> '${checkout}/\\.artifacts/dsh-superagent-superagent-\\d{8}-\\d{6}-\\d+\\.log' 2>&1$`)
-  expect(tmux.find(word => word.startsWith('umask 077; exec '))).toMatch(log)
+  const command = tmux.find(word => word.startsWith('umask 077; '))!
+  expect(command).toMatch(log)
+  if (process.platform === 'darwin') {
+    expect(command).toContain('/usr/bin/caffeinate -i -w $$ & exec ')
+  } else {
+    expect(command).not.toContain('caffeinate')
+  }
   const second = sleeper()
   started(service(pid), `${second} node node /opt/dsh --profile superagent`)
   const again = await run('start', '--url', url, '--timeout', '10')

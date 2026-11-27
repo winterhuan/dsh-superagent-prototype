@@ -119,6 +119,8 @@ scripts/dsh-superagent status
 
 `start` 在 tmux 会话 `dsh-superagent` 中运行 `dsh --profile superagent`；其他 profile 使用 `dsh-<profile>`。它最多等待一分钟，直到运行时就绪或报告设置要求。首次运行打印缺失设置，拒绝重复实例，包括未通过本脚本启动的实例。
 
+在 macOS 上，脚本会在服务运行期间阻止系统因空闲而休眠，以便及时接收事件。防休眠保护随服务进程退出而释放；手动让电脑休眠仍会中断连接。
+
 `stop` 和 `restart` 请求正常关闭，并最多等待执行器五分钟。它们绝不强制终止进程，也不影响其他 tmux 会话。
 
 `status` 打印进程 id、健康及设置问题。其他 profile 或端口使用 `--profile` 和 `--url`，或设置 `DSH_SUPERAGENT_PROFILE` 和 `DSH_SUPERAGENT_URL`。
